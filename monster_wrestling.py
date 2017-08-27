@@ -45,7 +45,7 @@ def monster_wrestling():
     # constants
     MAX_PANIC = 4           # number of PANIC BUTTON uses
     MAX_ROUNDS = 12         # number of rounds
-    MAX_WAIT = 9.0          # wait 2s for an input from keyboard
+    MAX_WAIT = 2.0          # wait 2s for an input from keyboard
 
     WAIT_TIME = 1.0         # time to wait before begin another round
 
