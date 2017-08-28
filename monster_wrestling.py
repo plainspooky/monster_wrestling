@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
     Monster Wrestling
-    My version in Python for the game of the same name included in the book
+    My version in Python for the game of same name included in the book
     'WEIRD COMPUTER GAMES' from Usborne Publishing.
 
     https://usborne.com/browse-books/features/computer-and-coding-books/
@@ -30,6 +30,8 @@ __license__ = "GPL3"
 __version__ = '1.0'
 
 import curses
+import locale
+
 from random import randint, random
 from time import sleep, time
 
@@ -284,6 +286,7 @@ def main():
 
 
 if __name__ == "__main__":
+    locale.setlocale(locale.LC_ALL,"")
     screen = curses.initscr()
     main()
     curses.endwin()
