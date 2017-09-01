@@ -41,13 +41,13 @@ RETURN = 10
 def monster_wrestling():
     """
     Game based on the original "Monster Wrestling" from the WEIRD COMPUTER GAMES
-    from Usborne Publishing (UK) in 1983.
+    from Usborne Publishing (UK) in 1984.
     """
 
     # constants
     MAX_PANIC = 4           # number of PANIC BUTTON uses
     MAX_ROUNDS = 12         # number of rounds
-    MAX_WAIT = 2.0          # wait 2s for an input from keyboard
+    MAX_WAIT = 2.0          # wait 3s for input from keyboard
 
     WAIT_TIME = 1.0         # time to wait before begin another round
 
@@ -79,7 +79,8 @@ def monster_wrestling():
     # there are nested functions here!
     def redraw_screen(title, color):
         """
-        (re)Draw the game screen. Clear screen and paint with the rigth colors.
+        (re)Draw the game screen.
+        Clear screen and paint with the rigth colors.
         """
         (lines, columns) = screen.getmaxyx()
 
@@ -98,7 +99,7 @@ def monster_wrestling():
 
     def get_input(y, x, color, stop_time):
         """
-        Wait user input from keyboard
+        Wait user input from keyboard.
         """
 
         value = ''
