@@ -38,6 +38,7 @@ from time import sleep, time
 BACKSPACE = 127
 RETURN = 10
 
+
 def monster_wrestling():
     """
     Game based on the original "Monster Wrestling" from the WEIRD COMPUTER GAMES
@@ -87,15 +88,14 @@ def monster_wrestling():
         # clear screen (repainting)
         for line in range(lines):
             try:
-                screen.addstr(line, 0, b' '*columns, \
-                curses.color_pair(color[1]) \
-                if line==0 else curses.color_pair(color[0]))
+                screen.addstr(line, 0, b' ' * columns,
+                              curses.color_pair(color[1])
+                              if line == 0 else curses.color_pair(color[0]))
             except:
                 pass
 
         # print title of this screen
         screen.addstr(0, 2, title, curses.color_pair(color[1]))
-
 
     def get_input(y, x, color, stop_time):
         """
@@ -105,7 +105,7 @@ def monster_wrestling():
         value = ''
 
         while True:
-            screen.addstr(y, x, '> '+value+' ', curses.color_pair(color))
+            screen.addstr(y, x, '> ' + value + ' ', curses.color_pair(color))
             key = screen.getch()
 
             if key == ord('p') or key == ord('P'):
@@ -118,7 +118,7 @@ def monster_wrestling():
 
             elif key == BACKSPACE:
                 # remove the last character
-                value = value[:-1] if len(value)>1 else ''
+                value = value[:-1] if len(value) > 1 else ''
 
             elif key == RETURN:
                 # submit user's input
@@ -151,27 +151,28 @@ def monster_wrestling():
             redraw_screen('PANIC ON!!', PANIC)
 
             if panic_counter == 3:
-                screen.addstr(10, 2, ' * * * You are seeing stars * * * ', \
-                curses.color_pair(PANIC[1]))
+                screen.addstr(10, 2, ' * * * You are seeing stars * * * ',
+                              curses.color_pair(PANIC[1]))
 
-            screen.addstr(2, 2, "Heartbeat increase : {}".format(heartbeat_increase), \
-            curses.color_pair(PANIC[0]))
+            screen.addstr(
+                2, 2, "Heartbeat increase : {}".format(heartbeat_increase),
+                curses.color_pair(PANIC[0]))
 
-            screen.addstr(4, 2, "Oxygen supply = {}".format(oxygen_supply), \
-            curses.color_pair(PANIC[0]))
+            screen.addstr(4, 2, "Oxygen supply = {}".format(oxygen_supply),
+                          curses.color_pair(PANIC[0]))
 
-            screen.addstr(6, 2, "Amount of adrenalin?", \
-            curses.color_pair(PANIC[1]))
+            screen.addstr(6, 2, "Amount of adrenalin?",
+                          curses.color_pair(PANIC[1]))
 
             # ask for adrenalin amount (be fast!)
-            keyboard = get_input(7, 2, PANIC[0], time()+(MAX_WAIT/2))
+            keyboard = get_input(7, 2, PANIC[0], time() + (MAX_WAIT / 2))
 
             # check keyboard input
             if keyboard == False:
                 alive = False
                 break
             elif keyboard != 'PANIC':
-                if ( oxygen_supply * int(keyboard) ) == heartbeat_increase:
+                if (oxygen_supply * int(keyboard)) == heartbeat_increase:
                     panic = False
                 else:
                     alive = False
@@ -181,8 +182,8 @@ def monster_wrestling():
             # the MONSTER mode
 
             # calculate values for this round
-            distance_away = int(random()*distance + distance)
-            monster_size = int(random()*max_size + min_size)
+            distance_away = int(random() * distance + distance)
+            monster_size = int(random() * max_size + min_size)
             distance += 0.5
             max_size += 0.5
             min_size += 0.5
@@ -190,17 +191,17 @@ def monster_wrestling():
             # redraw game screen
             redraw_screen('Monster Wrestling', MONSTER)
 
-            screen.addstr(2, 2, 'Size of monster : {}'.format(monster_size), \
-            curses.color_pair(MONSTER[0]))
+            screen.addstr(2, 2, 'Size of monster : {}'.format(monster_size),
+                          curses.color_pair(MONSTER[0]))
 
-            screen.addstr(4, 2, 'Distance away : {}'.format(distance_away), \
-            curses.color_pair(MONSTER[0]))
+            screen.addstr(4, 2, 'Distance away : {}'.format(distance_away),
+                          curses.color_pair(MONSTER[0]))
 
-            screen.addstr(6, 2, 'Muscular effort?', \
-            curses.color_pair(MONSTER[1]))
+            screen.addstr(6, 2, 'Muscular effort?',
+                          curses.color_pair(MONSTER[1]))
 
             # ask for effort!
-            keyboard = get_input(7, 2, MONSTER[0], time()+MAX_WAIT)
+            keyboard = get_input(7, 2, MONSTER[0], time() + MAX_WAIT)
 
             if keyboard == "PANIC":
                 panic = True
@@ -209,12 +210,12 @@ def monster_wrestling():
                 alive = False
                 break
             else:
-                if ( monster_size * distance_away ) != int(keyboard):
+                if (monster_size * distance_away) != int(keyboard):
                     alive = False
                     break
                 else:
-                    screen.addstr(2, 2, 'Monster kept at bay', \
-                    curses.color_pair(MONSTER[0]))
+                    screen.addstr(2, 2, 'Monster kept at bay',
+                                  curses.color_pair(MONSTER[0]))
                     sleep(WAIT_TIME)
 
     screen.nodelay(False)
@@ -226,14 +227,14 @@ def monster_wrestling():
             'Phew!!!!',
             'The monster is tired and has gone to look for another victim.',
             'You survive to tell the tale!',
-            ]
+        ]
     elif alive == False:
 
         messages = [
             'You have been crushed to a pulp in the monster\'s huge arms.',
-            'You survived {} round{}.'.format(round_counter, \
-            's' if round_counter>1 else '')
-            ]
+            'You survived {} round{}.'.format(round_counter,
+                                              's' if round_counter > 1 else '')
+        ]
     else:
         messages = [
             'You blacked out!',
@@ -242,13 +243,12 @@ def monster_wrestling():
     position = 2
 
     for text in messages:
-        screen.addstr(position, 2, text, \
-        curses.color_pair(ENDGAME[0]))
+        screen.addstr(position, 2, text,
+                      curses.color_pair(ENDGAME[0]))
         position += 1
 
-    screen.addstr(6, 2, ' Press any key to exit... ', \
-
-    curses.color_pair(ENDGAME[1]))
+    screen.addstr(6, 2, ' Press any key to exit... ',
+                  curses.color_pair(ENDGAME[1]))
 
     screen.getch()
 
@@ -287,7 +287,7 @@ def main():
 
 
 if __name__ == "__main__":
-    locale.setlocale(locale.LC_ALL,"")
+    locale.setlocale(locale.LC_ALL, "")
     screen = curses.initscr()
     main()
     curses.endwin()
