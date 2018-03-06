@@ -1,0 +1,90 @@
+# Monster Wrestling's Spanish translation.
+# Copyright (C) 2018
+# Giovanni Nunes <giovanni.nunes@gmail.com>, 2018.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"POT-Creation-Date: 2018-03-04 12:00+-03\n"
+"PO-Revision-Date: 2018-03-06 11:48-0300\n"
+"Last-Translator: Giovanni Nunes <giovanni.nunes@gmail.com>\n"
+"Language-Team: Português <>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: pygettext.py 1.5\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Gtranslator 2.91.7\n"
+
+#: monster_wrestling.py:171
+msgid "PANIC ON!!"
+msgstr "EL PÁNICO CONTINUA!!"
+
+#: monster_wrestling.py:174
+msgid " * * * You are seeing stars * * * "
+msgstr " * * * Estas viendo estrellas * * * "
+
+#: monster_wrestling.py:178
+msgid "Heartbeat increase : {}"
+msgstr "Incremento del pulso : {}"
+
+#: monster_wrestling.py:181
+msgid "Oxygen supply = {}"
+msgstr "Suministro de oxigeno = {}"
+
+#: monster_wrestling.py:184
+msgid "Amount of adrenaline?"
+msgstr "¿Cantidad de adrenalina?"
+
+#: monster_wrestling.py:212
+msgid "Monster Wrestling"
+msgstr "Combate de monstruos"
+
+#: monster_wrestling.py:214
+msgid "Size of monster : {}"
+msgstr "Tipo de monstruo : {}"
+
+#: monster_wrestling.py:217
+msgid "Distance away : {}"
+msgstr "Distancia : {}"
+
+#: monster_wrestling.py:220
+msgid "Muscular effort?"
+msgstr "¿Esfuerzo muscular?"
+
+#: monster_wrestling.py:237
+msgid "Monster kept at bay"
+msgstr "El monstruo se mantiene en la bahía"
+
+#: monster_wrestling.py:243
+msgid "End of game!"
+msgstr "Fin del juego!"
+
+#: monster_wrestling.py:247
+msgid "Phew!!!!"
+msgstr "¡¡¡Ufff!!!"
+
+#: monster_wrestling.py:248
+msgid "The monster is tired and has gone to look for another victim."
+msgstr "El monstruo está cansado y ha ido a buscar otra victima."
+
+#: monster_wrestling.py:249
+msgid "You survive to tell the tale!"
+msgstr "Sobrevives para contarlo"
+
+#: monster_wrestling.py:254
+msgid "You have been crushed to a pulp in the monster's huge arms."
+msgstr "Acabas de morir reventado en los enormes brazos del monstruo."
+
+#: monster_wrestling.py:255
+msgid "You survived {} round{}."
+msgstr "ha sobrevivido {} asalto{}."
+
+#: monster_wrestling.py:260
+msgid "You blacked out!"
+msgstr "Te ha dado un ataque al corazón!"
+
+#: monster_wrestling.py:270
+msgid " Press any key to exit... "
+msgstr " Tecle algo para salir... "
