@@ -30,8 +30,9 @@ __license__ = "GPL3"
 __version__ = '1.0'
 
 import curses
+import gettext
 import locale
-
+from os.path import join as path_join
 from random import randint, random
 from time import sleep, time
 
@@ -39,18 +40,36 @@ BACKSPACE = 127
 RETURN = 10
 
 
-def monster_wrestling():
+def init_locale():
+    """Initalize localization support. Checks the current system's locale
+    and tries to load it if exists. Otherwise uses the default locale.\n
     """
-    Game based on the original "Monster Wrestling" from the WEIRD COMPUTER GAMES
-    from Usborne Publishing (UK) in 1984.
+    locale.setlocale(locale.LC_ALL, )
+    (loc, enc) = locale.getlocale()
+
+    filename = path_join('lang', '{}.{}',
+                         'LC_MESSAGES/messages.mo').format(loc, enc)
+
+    try:
+        trans = gettext.GNUTranslations(open(filename, "rb"))
+
+    except IOError:
+        trans = gettext.NullTranslations()
+
+    trans.install()
+
+
+def monster_wrestling():
+    """Game based on the original "Monster Wrestling" from the WEIRD COMPUTER GAMES
+    from Usborne Publishing (UK) in 1984.\n
     """
 
     # constants
     MAX_PANIC = 4           # number of PANIC BUTTON uses
     MAX_ROUNDS = 12         # number of rounds
-    MAX_WAIT = 2.0          # wait 3s for input from keyboard
+    MAX_WAIT = 3.0          # wait 3s for input from keyboard
 
-    WAIT_TIME = 1.0         # time to wait before begin another round
+    WAIT_TIME = 1           # time to wait before begin another round
 
     #
     # color schemes
@@ -79,9 +98,8 @@ def monster_wrestling():
 
     # there are nested functions here!
     def redraw_screen(title, color):
-        """
-        (re)Draw the game screen.
-        Clear screen and paint with the rigth colors.
+        """(re)Draw the game screen.\n
+        Clear screen and paint with the rigth colors.\n
         """
         (lines, columns) = screen.getmaxyx()
 
@@ -98,8 +116,7 @@ def monster_wrestling():
         screen.addstr(0, 2, title, curses.color_pair(color[1]))
 
     def get_input(y, x, color, stop_time):
-        """
-        Wait user input from keyboard.
+        """Wait user input from keyboard.\n
         """
 
         value = ''
@@ -120,7 +137,7 @@ def monster_wrestling():
                 # remove the last character
                 value = value[:-1] if len(value) > 1 else ''
 
-            elif key == RETURN:
+            elif key == RETURN and value !='':
                 # submit user's input
                 return value
 
@@ -148,20 +165,20 @@ def monster_wrestling():
             oxygen_supply = randint(1, 9)
             heartbeat_increase = randint(1, 9) * oxygen_supply
 
-            redraw_screen('PANIC ON!!', PANIC)
+            redraw_screen(_('PANIC ON!!'), PANIC)
 
             if panic_counter == 3:
-                screen.addstr(10, 2, ' * * * You are seeing stars * * * ',
+                screen.addstr(10, 2, _(' * * * You are seeing stars * * * '),
                               curses.color_pair(PANIC[1]))
 
             screen.addstr(
-                2, 2, "Heartbeat increase : {}".format(heartbeat_increase),
+                2, 2, _("Heartbeat increase : {}").format(heartbeat_increase),
                 curses.color_pair(PANIC[0]))
 
-            screen.addstr(4, 2, "Oxygen supply = {}".format(oxygen_supply),
+            screen.addstr(4, 2, _("Oxygen supply = {}").format(oxygen_supply),
                           curses.color_pair(PANIC[0]))
 
-            screen.addstr(6, 2, "Amount of adrenalin?",
+            screen.addstr(6, 2, _("Amount of adrenaline?"),
                           curses.color_pair(PANIC[1]))
 
             # ask for adrenalin amount (be fast!)
@@ -189,15 +206,15 @@ def monster_wrestling():
             min_size += 0.5
 
             # redraw game screen
-            redraw_screen('Monster Wrestling', MONSTER)
+            redraw_screen(_('Monster Wrestling'), MONSTER)
 
-            screen.addstr(2, 2, 'Size of monster : {}'.format(monster_size),
+            screen.addstr(2, 2, _('Size of monster : {}').format(monster_size),
                           curses.color_pair(MONSTER[0]))
 
-            screen.addstr(4, 2, 'Distance away : {}'.format(distance_away),
+            screen.addstr(4, 2, _('Distance away : {}').format(distance_away),
                           curses.color_pair(MONSTER[0]))
 
-            screen.addstr(6, 2, 'Muscular effort?',
+            screen.addstr(6, 2, _('Muscular effort?'),
                           curses.color_pair(MONSTER[1]))
 
             # ask for effort!
@@ -214,30 +231,30 @@ def monster_wrestling():
                     alive = False
                     break
                 else:
-                    screen.addstr(2, 2, 'Monster kept at bay',
+                    screen.addstr(2, 2, _('Monster kept at bay'),
                                   curses.color_pair(MONSTER[0]))
                     sleep(WAIT_TIME)
 
     screen.nodelay(False)
 
-    redraw_screen('End of game!', ENDGAME)
+    redraw_screen(_('End of game!'), ENDGAME)
 
     if alive == True:
         messages = [
-            'Phew!!!!',
-            'The monster is tired and has gone to look for another victim.',
-            'You survive to tell the tale!',
+            _('Phew!!!!'),
+            _('The monster is tired and has gone to look for another victim.'),
+            _('You survive to tell the tale!'),
         ]
     elif alive == False:
 
         messages = [
-            'You have been crushed to a pulp in the monster\'s huge arms.',
-            'You survived {} round{}.'.format(round_counter,
-                                              's' if round_counter > 1 else '')
+            _('You have been crushed to a pulp in the monster\'s huge arms.'),
+            _('You survived {} round{}.').format(round_counter,
+                                                 's' if round_counter > 1 else '')
         ]
     else:
         messages = [
-            'You blacked out!',
+            _('You blacked out!'),
         ]
 
     position = 2
@@ -247,7 +264,7 @@ def monster_wrestling():
                       curses.color_pair(ENDGAME[0]))
         position += 1
 
-    screen.addstr(6, 2, ' Press any key to exit... ',
+    screen.addstr(6, 2, _(' Press any key to exit... '),
                   curses.color_pair(ENDGAME[1]))
 
     screen.getch()
@@ -256,8 +273,7 @@ def monster_wrestling():
 
 
 def main():
-    """
-        This is the main() routine and set up the curses library.
+    """This is the main() routine and set up the curses library.\n
     """
     curses.noecho()
     curses.start_color()
@@ -287,7 +303,7 @@ def main():
 
 
 if __name__ == "__main__":
-    locale.setlocale(locale.LC_ALL, "")
+    init_locale()
     screen = curses.initscr()
     main()
     curses.endwin()
